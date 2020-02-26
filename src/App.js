@@ -42,6 +42,10 @@ const Container = styled.div`
     background-color: #40e0d0;
     color: #ffffff;
   }
+  div button {
+    display: block;
+    margin-left: 900px;
+  }
 `;
 
 export default function App() {
@@ -64,6 +68,29 @@ export default function App() {
     event.preventDefault();
   }
 
+  function deleteTodo(todoInList) {
+    const { todos } = this.state;
+    const newTodos = [...todos];
+    const itemIndex = newTodos.findIndex(todo => todo.name === todoInList.name);
+
+    if (itemIndex > -1) {
+      newTodos.splice(itemIndex, 1);
+    } else {
+      newTodos.push(todoInList);
+    }
+
+    this.setState({
+      todos: newTodos,
+    });
+  }
+
+  // function deleteTodo(id) {
+  //   const newTodos = [...todos];
+  //   const todo = newTodos.find(todo => todo.id === id);
+  //   newTodos.splice(todo, 1);
+  //   setTodos(newTodos);
+  // }
+
   return (
     <>
       <Container>
@@ -81,6 +108,9 @@ export default function App() {
           {todos.map(todoInList => {
             return (
               <div key={todoInList.id}>
+                <button className="x" onClick={deleteTodo}>
+                  x
+                </button>
                 <input
                   value={todoInList.completed}
                   type="checkbox"
