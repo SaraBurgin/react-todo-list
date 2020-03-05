@@ -54,33 +54,69 @@ const Container = styled.div`
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
       Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
-  div > input[type='checkbox'] {
-    display: inline-block;
-    position: relative;
-    width: 20px;
-  }
+`;
+const Todos = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: 510px;
+  margin-bottom: 5px;
+  vertical-align: baseline;
 
+  /* full written todo */
   div {
-    display: flex;
-    position: relative;
-    width: 500px;
-    color: #ffffff;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-weight: bold;
-    font-size: 25px;
+    display: inline-flex;
   }
-
-  div > button {
-    display: inline-block;
-    position: relative;
+  .box {
+    width: 350px;
+    height: 30px;
+    margin-top: 5px;
+    border: 3px solid #40e0d0;
     border-radius: 10px;
+    background-color: #ffffff;
+    padding: 10px;
+  }
+`;
+
+const Delete = styled.div`
+  button {
+    display: inline-flex;
+    vertical-align: baseline;
+    text-align: center;
+    border-radius: 10px;
+    text-decoration: none;
     padding-left: 10px;
     padding-right: 10px;
-    padding-top: 10px;
+    padding-top: 7px;
     padding-bottom: 10px;
     background-color: #40e0d0;
     color: #ffffff;
+    margin-right: 100px;
+    order: 1;
+  }
+`;
+
+const CheckboxInput = styled.div`
+  margin-top: 7px;
+  display: inline-flex;
+  vertical-align: baseline;
+  margin-left: 10px;
+  order: 3;
+`;
+
+const ActualTodo = styled.div`
+  div {
+    width: 210px;
+    margin-left: -75px;
+    margin-top: 4px;
+    display: inline-flex;
+    vertical-align: baseline;
+    order: 2;
+    font-size: 20px;
+    vertical-align: baseline;
+    color: #57595d;
+    font-weight: bold;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   }
 `;
 
@@ -123,37 +159,48 @@ export default function App() {
           <button> Add item </button>
           <br></br>
           <p>List of todos:</p>
-          {todos.map(todoInList => {
-            //map gives you the possibility of changing the object from string to object for example.
-            return (
-              <div key={todoInList.id}>
-                <button className="x" onClick={() => deleteTodo(todoInList.id)}>
-                  x
-                </button>
-                <input
-                  value={todoInList.completed}
-                  type="checkbox"
-                  onChange={() => {
-                    setTodos(
-                      todos.map(todo => {
-                        const newTodo = { ...todo };
-                        if (todo.id === todoInList.id) {
-                          //=== : mean equal // !== : the opposite
-                          if (todo.completed === true) {
-                            newTodo.completed = false;
-                          } else {
-                            newTodo.completed = true;
-                          }
-                        }
-                        return newTodo;
-                      }),
-                    );
-                  }}
-                />
-                {todoInList.name}
-              </div>
-            );
-          })}
+          <Todos>
+            {todos.map(todoInList => {
+              //map gives you the possibility of changing the object from string to object for example.
+              return (
+                <div className="box" key={todoInList.id}>
+                  <Delete>
+                    <button
+                      className="x"
+                      onClick={() => deleteTodo(todoInList.id)}
+                    >
+                      x
+                    </button>
+                  </Delete>
+                  <CheckboxInput>
+                    <input
+                      value={todoInList.completed}
+                      type="checkbox"
+                      onChange={() => {
+                        setTodos(
+                          todos.map(todo => {
+                            const newTodo = { ...todo };
+                            if (todo.id === todoInList.id) {
+                              //=== : mean equal // !== : the opposite
+                              if (todo.completed === true) {
+                                newTodo.completed = false;
+                              } else {
+                                newTodo.completed = true;
+                              }
+                            }
+                            return newTodo;
+                          }),
+                        );
+                      }}
+                    />
+                  </CheckboxInput>
+                  <ActualTodo>
+                    <div className="todoInListName">{todoInList.name}</div>
+                  </ActualTodo>
+                </div>
+              );
+            })}
+          </Todos>
         </form>
       </Container>
     </>
