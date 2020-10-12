@@ -25,6 +25,9 @@ const Container = styled.div`
     font-size: 20px;
     border: 4px solid #40e0d0;
     border-radius: 5px;
+      :focus {
+    outline: white;
+    }
   }
 
   form > button {
