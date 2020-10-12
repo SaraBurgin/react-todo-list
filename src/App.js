@@ -50,6 +50,7 @@ const Container = styled.div`
     grid-template-columns: 1fr 1fr 5fr 5fr 2fr;
     grid-template-rows: 1fr;
     justify-items: center;
+    margin-bottom: 5px;
     width: 350px;
     height: 60px;
     border: 3px solid #40e0d0;
